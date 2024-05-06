@@ -1,0 +1,12 @@
+.userlist{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.rounded-top-left {
+    border-top-left-radius: 10px !important;
+  }
+  
+  .rounded-top-right {
+    border-top-right-radius: 10px !important;
+  }
