@@ -31,8 +31,6 @@ function UserList() {
       setUsers(updatedUsers);
       setFilterData(updatedUsers);
       setActiveModal(null);
-
-      // Call the API to update the user's block status
       await userBlock(userId, !isBlocked);
     } catch (error) {
       console.log(error?.response?.data?.message);
@@ -50,9 +48,7 @@ function UserList() {
   const handleInputChange = (e) => {
     const { value } = e.target;
     setSearchInput(value);
-    setCurrentPage(1); // Reset to the first page when search input changes
-
-    // Filter users based on search input
+    setCurrentPage(1); 
     const filteredUsers = users.filter((person) =>
       person.name.toLowerCase().includes(value.toLowerCase())
     );
@@ -127,7 +123,7 @@ function UserList() {
         </table>
       </div>
 
-      {/* Pagination Component */}
+    
       <Pagination
         numbers={numbers}
         currentPage={currentPage}
@@ -135,7 +131,7 @@ function UserList() {
         totalPages={totalPages}
       />
 
-      {/* Modals for Block/Unblock Confirmation */}
+   
       {users.map((data) => (
         <div
           key={`popup-modal-${data._id}`}

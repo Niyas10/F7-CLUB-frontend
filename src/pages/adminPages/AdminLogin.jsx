@@ -12,7 +12,7 @@ function AdminLogin() {
   const dispatch = useDispatch()
 
   const onSubmit = async ()=>{
-    console.log('hey this is ')
+  
     try{
       const res = await adminVerifyLogin(values);
 

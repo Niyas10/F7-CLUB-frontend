@@ -7,10 +7,27 @@ export const adminVerifyLogin = async(loginData)=>{
 
 export const userList = async()=>{
     const data = await adminAxiosInstance.get("/userList");
-    return data
+    return data;
 }
 
 export const userBlock = async (userId,status)=>{
     const data = await adminAxiosInstance.patch("/blockUser",{userId,status})
-    return data
+    return data;
+}
+
+export const category = async()=>{
+    const data = await adminAxiosInstance.get('/category')
+    return data ;
+}
+
+export const addCategory = async(categoryData)=>{
+    const data = await adminAxiosInstance.post('/addCategory',categoryData)
+    return data ;
+}
+
+export const categoryBlock = async (categoryId,status) =>{
+    console.log(categoryId,status);
+    const data = await adminAxiosInstance.patch('/blockCategory',categoryId,status)
+    console.log(data);
+    return data 
 }

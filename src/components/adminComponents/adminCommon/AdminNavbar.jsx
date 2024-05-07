@@ -48,7 +48,7 @@ function AdminNavbar() {
           </a>
         </li>
         <li className="nav-item me-3">
-          <a className="nav-link text-font" href="#">
+          <a className="nav-link text-font" href="/admin/category">
           Category
           </a>
         </li>
