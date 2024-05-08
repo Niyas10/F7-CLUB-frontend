@@ -24,7 +24,7 @@ function Category() {
     };
 
     fetchCategories();
-  }, []);
+  }, [categories]);
 
   const handleAddCategory = async () => {
     try {

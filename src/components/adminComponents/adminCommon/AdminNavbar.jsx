@@ -43,14 +43,14 @@ function AdminNavbar() {
           </Link>
         </li>
         <li className="nav-item me-3">
-          <a className="nav-link text-font" href="#">
+          <Link className="nav-link text-font" to="/admin/workouts">
             Workouts
-          </a>
+          </Link>
         </li>
         <li className="nav-item me-3">
-          <a className="nav-link text-font" href="/admin/category">
+          <Link className="nav-link text-font" to="/admin/category">
           Category
-          </a>
+          </Link>
         </li>
         <li className="nav-item me-3">
           <a className="nav-link text-font" href="#">
