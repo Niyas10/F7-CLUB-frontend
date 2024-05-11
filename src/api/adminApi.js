@@ -26,18 +26,16 @@ export const addCategory = async(categoryData)=>{
 }
 
 export const categoryBlock = async (categoryId,status) =>{
-    console.log(categoryId,status);
     const data = await adminAxiosInstance.patch('/blockCategory',categoryId,status)
-    console.log(data);
     return data 
 }
 
 export const workout = async()=>{
     const data = await adminAxiosInstance.get('/workouts')
+    console.log(data)
     return data 
 }
-
-export const addWorkout = async(roomFromData,imageAfterCrop) =>{
-    const data = await adminAxiosInstance.post('/addworkout',...roomFromData,imageAfterCrop)
-    return data 
-}
+export const addWorkout = async (formData) => {
+    const data = await adminAxiosInstance.post("/addworkout", formData);
+    return data;
+  };

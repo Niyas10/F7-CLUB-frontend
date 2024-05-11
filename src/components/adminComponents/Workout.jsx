@@ -1,14 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { addWorkout } from '../../api/adminApi'
 
 function Workout() {
   const navigate = useNavigate()
+  const [workout,setWorkout] =useState([])
+
+
+  useEffect (()=>{
+   const fetchWorkout = async()=>{
+    try{
+      const response = await addWorkout()
+      console.log(response)
+      if(response.data){
+          setWorkout(response.data)
+      }
+    }catch(error){
+      console.error('Error fetching categoies ;',error)
+    }
+   }
+   fetchWorkout();
+  },[])
+
+
+
   return (
     <>
     
      <button onClick={()=>navigate('/admin/addworkout')}>add workout</button>
-   
-      
        <div className="userlist">
   <table className="table align-middle mb-0 bg-white">
     <thead className="bg-light">
@@ -23,22 +42,6 @@ function Workout() {
     <tbody>
       <tr>
         <td>1</td>
-        <td>Push-ups</td>
-        <td>Beginner</td>
-        <td>
-          <img src="https://via.placeholder.com/50" alt="Push-ups" className="img-fluid" />
-        </td>
-        <td>
-          <button type="button" className="btn btn-primary me-2">
-            Edit
-          </button>
-          <button type="button" className="btn btn-secondary">
-            List
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
         <td>Squats</td>
         <td>Intermediate</td>
         <td>
