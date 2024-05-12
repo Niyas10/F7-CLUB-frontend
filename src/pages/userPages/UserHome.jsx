@@ -1,9 +1,10 @@
 import React from 'react'
 import UserNavbar from '../../components/userComponents/userCommon/UserNavbar'
-import  LandingPage from '../../components/userComponents/homePage/Landingpage'
+import LandingPage from '../../components/userComponents/homePage/Landingpage'
 import ThirdSection from '../../components/userComponents/homePage/ThirdSection'
 import SecondSection from '../../components/userComponents/homePage/SecondSection'
-// import FourthSection from '../../components/userComponents/homePage/FourthSection'
+import UserFooter from '../../components/userComponents/userCommon/UserFooter'
+import FourthSection from '../../components/userComponents/homePage/FourthSection'
 
 function UserHome() {
   return (
@@ -12,7 +13,9 @@ function UserHome() {
    <LandingPage/>
    <ThirdSection/>
    <SecondSection/>
-   {/* <FourthSection/> */}
+   <FourthSection/>
+   <UserFooter/>
+
    
    </>
   )

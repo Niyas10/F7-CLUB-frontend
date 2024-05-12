@@ -1,3 +1,16 @@
 body{
     overflow-x: hidden;
+    background-color: rgb(255, 255, 255) !important;
 }
+
+.fourth-sectin-div{
+    background: rgb(255,255,255);
+    background: linear-gradient(135deg, rgb(255, 255, 255) 63%, rgba(214,251,0,1) 63%);display: flex;
+ justify-content: end;
+}
+
+
+.fourth-section-backgound {
+  
+}
+
