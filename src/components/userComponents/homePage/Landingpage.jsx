@@ -1,8 +1,9 @@
 import React from 'react'
 import './Landingpage.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function Landingpage() {
-
 
 
   return (

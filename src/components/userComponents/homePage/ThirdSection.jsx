@@ -1,14 +1,20 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./ThirdSection.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function ThirdSection() {
+    useEffect(() => {
+        AOS.init();
+      }, []);
   return (
     <>
-<div   id="third"  className="third-section">
+<div   id="third"  className="third-section"  data-aos="fade-up"
+     data-aos-duration="2000" >
     <div className="row container-fluid">
         <div className="col-lg-12 text-start">
             <div className="row">
-                <div className="col-lg-4 text-start">
+                <div className="col-lg-4 text-start" >
                     <img
                         src="/public/logo/green arrow.svg"
                         alt=""
