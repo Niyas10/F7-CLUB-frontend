@@ -95,6 +95,7 @@ const AddWorkout = () => {
 
   return (
     <div className="container">
+    
       <h2>Add Workout</h2>
       <form onSubmit={handleSubmit}>
         <div className="row">

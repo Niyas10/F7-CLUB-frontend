@@ -6,6 +6,7 @@ import AdminUserList from '../pages/adminPages/AdminUserList'
 import AdminCategory from '../pages/adminPages/AdminCategory'
 import AdminWorkout from '../pages/adminPages/AdminWorkout'
 import AdminAddWorkout from '../pages/adminPages/AdminAddWorkout'
+import AdminEditWorkout from '../pages/adminPages/AdminEditWorkout'
 
 
 function AdminRoute() {
@@ -17,6 +18,7 @@ function AdminRoute() {
         <Route path='/category' element={<AdminCategory/>} />
         <Route path='/workouts' element={<AdminWorkout/>} />
         <Route path='/addworkout' element={<AdminAddWorkout/>} />
+        <Route path='/editWorkout/:workoutId' element={<AdminEditWorkout/>} />
 
     </Routes>
   )

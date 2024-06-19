@@ -90,6 +90,11 @@ function Category() {
 
   return (
     <>
+
+    <div  style={{marginTop:'50px',marginBottom:'30px'}}>
+    <h1 style={{textAlign:'center'}}>Category</h1>
+    </div>
+
       {/* Add Category Button */}
       <div className="row">
         <div className="d-flex justify-content-end mb-3 col-lg-2 ms-auto">
@@ -139,16 +144,16 @@ function Category() {
 
       {/* Category Table */}
       <div className="categoryTable">
-        <h3>Categories</h3>
+      
         <table className="table table-bordered">
-          <thead>
+          <thead style={{textAlign:'center'}}>
             <tr>
               <th>ID</th>
               <th>Category</th>
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{textAlign:'center'}}>
             {categoriesToShow.length > 0 ? (
               categoriesToShow.map((category, index) => (
                 <tr key={category._id}>
@@ -158,7 +163,7 @@ function Category() {
                     <button
                       className={`btn ${category.isListed ? 'btn-success' : 'btn-danger'}`}
                       onClick={() => blockUnblockCategory(category._id, category.isListed)}
-                    >
+                   style={{width:'40%'}} >
                       {category.isListed ? 'Listed' : 'Unlisted'}
                     </button>
                   </td>

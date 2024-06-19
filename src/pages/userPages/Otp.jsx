@@ -150,11 +150,11 @@ const Otp = () => {
               </div>
             </div>
           </div>
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <a href="#" className="text-decoration-none ms-3">
               count
             </a>
-          </div>
+          </div> */}
           </form>
 
         </div>

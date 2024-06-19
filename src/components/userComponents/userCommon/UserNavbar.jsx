@@ -40,8 +40,13 @@ const handleLogout = ()=>{
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
         <ul className="navbar-nav mx-auto">
           <li className="nav-item me-3">
-            <Link className="nav-link text-font" href="/">
+            <Link className="nav-link text-font" to="/">
               Home
+            </Link>
+          </li>
+          <li className="nav-item me-3">
+            <Link className="nav-link text-font" to="/workout">
+              Workout
             </Link>
           </li>
           <li className="nav-item me-3">
@@ -49,11 +54,7 @@ const handleLogout = ()=>{
               Diet
             </a>
           </li>
-          <li className="nav-item me-3">
-            <Link className="nav-link text-font" href="/workouts">
-              Workout
-            </Link>
-          </li>
+       
           <li className="nav-item me-3">
             <a className="nav-link text-font" href="#">
               Blog

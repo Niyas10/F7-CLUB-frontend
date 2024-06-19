@@ -63,8 +63,11 @@ function UserList() {
 
   return (
     <>
-      <div>
-        <form>
+    <div style={{marginTop:'50px',marginBottom:'30px'}}>
+      <h1 style={{textAlign:'center'}}>User List</h1>
+    </div>
+      <div className='container-fluid'>
+        <form style={{textAlign:'end',marginBottom:'30px'}}>
           <input
             name="search"
             value={searchInput}
@@ -75,9 +78,9 @@ function UserList() {
         </form>
       </div>
       <div className="userlist">
-        <table className="table align-middle mb-0 bg-white">
+        <table className="table align-middle mb-0 bg-white table-bordered">
           <thead className="bg-light">
-            <tr>
+            <tr style={{textAlign:'center'}}>
               <th>ID</th>
               <th className="rounded-top-left">Name</th>
               <th>Email</th>
@@ -85,7 +88,7 @@ function UserList() {
               <th className="rounded-top-right">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{textAlign:'center'}}>
             {usersSinglePage.length > 0 ? (
               usersSinglePage.map((data, index) => (
                 <tr key={data._id}>

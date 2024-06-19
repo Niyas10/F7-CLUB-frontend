@@ -38,3 +38,15 @@ export const addWorkout = async (formData) => {
     const data = await adminAxiosInstance.post("/addworkout", formData);
     return data;
   };
+
+  export const editWorkout = async (workoutId) =>{
+   const data = await adminAxiosInstance.get(`/editWorkout/${workoutId}`)
+   return data 
+  }
+
+  export const finalEditWorkout = async(formData)=>{
+    console.log(formData,'hey')
+    const data = await  adminAxiosInstance.put('/editedWorkout',{...formData})
+    console.log(data,'data')
+    return data 
+  }

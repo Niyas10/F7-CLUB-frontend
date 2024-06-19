@@ -18,26 +18,26 @@ function Pagination({ currentPage, setCurrentPage, totalPages, numbers }) {
   return (
     <div>
   <nav aria-label="Page navigation example">
-    <ul className="pagination justify-content-center my-5">
+    <ul className="pagination justify-content-center my-5 ">
       {currentPage !== 1 && (
         <li className="page-item">
           <a
             onClick={prevPage}
             className="page-link"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer",color:'white' }}
           >
             Prev
           </a>
         </li>
       )}
       {numbers.map((item, i) => (
-        <li key={i} className="page-item">
+        <li key={i} className="page-item" >
           <a
             onClick={() => changePage(item)}
             className={`page-link ${
               currentPage === item ? "bg-primary text-red font-weight-bold" : ""
             }`}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer",color:'white'}}
           >
             {item}
           </a>

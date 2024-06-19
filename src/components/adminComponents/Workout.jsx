@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { workout } from '../../api/adminApi';
+import { useNavigate,Link } from 'react-router-dom';
+import { workout} from '../../api/adminApi';
 
 function Workout() {
   const navigate = useNavigate();
@@ -23,7 +23,10 @@ function Workout() {
 
   return (
     <>
-      <button onClick={() => navigate('/admin/addworkout')}>Add Workout</button>
+  <div style={{textAlign:'end',marginTop:'50px',marginBottom:'30px'}}>
+    <button onClick={() => navigate('/admin/addworkout')} style={{width:'15%',backgroundColor:'black',color:'white'}}>Add Workout</button>
+    </div>
+     
       <div className="userlist">
         <table className="table align-middle mb-0 bg-white">
           <thead className="bg-light">
@@ -47,10 +50,10 @@ function Workout() {
                   <td>{workout.difficulty}</td>
                   <td>{workout.category ? workout.category.name : '-'}</td>
                   <td>
-                    <img src={workout.images[0]} alt={workout.workoutName} className="img-fluid" />
+                    <img src={workout.images[0]} alt={workout.workoutName} className="img-fluid" style={{maxWidth:'100px'}} />
                   </td>
                   <td>
-                    <button type="button" className="btn btn-primary me-2">
+                    <button onClick={()=>navigate(`/admin/editWorkout/${workout._id}`)} className="btn btn-primary me-2">
                       Edit
                     </button>
                     <button type="button" className="btn btn-secondary">

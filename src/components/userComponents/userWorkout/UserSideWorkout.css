@@ -1,0 +1,10 @@
+.classic-section{
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.workout-font{
+    text-decoration: none;
+    color: white;
+}
