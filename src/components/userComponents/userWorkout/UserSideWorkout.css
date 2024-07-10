@@ -1,10 +1,167 @@
-.classic-section{
-    display: flex;
-    justify-content: center;
-    color: #ffffff;
+.header-section {
+  padding: 25px 0;
+  background-color: black;
 }
 
-.workout-font{
-    text-decoration: none;
-    color: white;
+.classic-section {
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.workout-font {
+  margin: 0 20px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.filter-section {
+  text-align: center;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.search-input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.search-input-container input {
+  padding: 10px 30px 10px 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.difficulty-dropdown {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.clear-filter-button {
+  padding: 4px 8px;
+  border: none;
+  background-color: #ee3c3c;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 40px;
+  margin-left: 10px;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.clear-filter-button:hover {
+  background-color: #df0000;
+}
+
+.category-section {
+  padding: 0 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.no-results {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.no-results img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.small-pagination-button {
+  background-color: #f2f2f2;
+  color: #333;
+  border: none;
+  padding: 4px 8px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.small-pagination-button:hover {
+  background-color: #ddd;
+}
+
+.small-pagination-button.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.small-pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.workout-info {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row !important;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.arrow-icon {
+  height: 20px;
+  transform: rotate(44deg);
+}
+
+.workout-cards {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.workout-cards:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  border: 3px solid #d6fb00;
+}
+
+.paginatation-parent {
+  display: flex;
+  justify-content: center !important;
+}
+
+.card-body {
+  padding: 20px;
+  background: black;
 }

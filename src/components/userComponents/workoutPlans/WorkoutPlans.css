@@ -1,0 +1,38 @@
+.workout-plans-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .box {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    width: 45%;
+  }
+  
+  .heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .features {
+    margin-bottom: 15px;
+  }
+  
+  .action-button {
+    background-color: #007bff; /* Example blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .subscription.action-button {
+    background-color: #28a745; /* Example green */
+  }

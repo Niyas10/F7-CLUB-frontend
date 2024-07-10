@@ -56,7 +56,7 @@ const handleLogout = ()=>{
           </li>
        
           <li className="nav-item me-3">
-            <a className="nav-link text-font" href="#">
+            <a className="nav-link text-font" href="/blog">
               Blog
             </a>
           </li>

@@ -1,0 +1,95 @@
+.blog-header-section {
+  padding: 25px 0;
+  background-color: black;
+}
+
+.blog-classic-section {
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.blog-workout-font {
+  margin: 0 20px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.blog-category-section {
+  padding: 0 20px;
+}
+
+.blog-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.blog-image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.blog-no-results {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.blog-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.blog-pagination-button {
+  background-color: #f2f2f2;
+  color: #333;
+  border: none;
+  padding: 4px 8px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.blog-pagination-button:hover {
+  background-color: #ddd;
+}
+
+.blog-pagination-button.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.blog-pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.blog-workout-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.blog-arrow-icon {
+  height: 20px;
+  transform: rotate(44deg);
+}
+
+.blog-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.blog-pagination-parent {
+  display: flex;
+  justify-content: center !important;
+}

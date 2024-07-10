@@ -53,7 +53,7 @@ function AdminNavbar() {
           </Link>
         </li>
         <li className="nav-item me-3">
-          <a className="nav-link text-font" href="#">
+          <a className="nav-link text-font" href="/admin/blogs">
             Blog
           </a>
         </li>

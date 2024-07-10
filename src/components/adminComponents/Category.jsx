@@ -8,8 +8,11 @@ function Category() {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [selectedCategoryStatus, setSelectedCategoryStatus] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  const dataPerPage = 6;
+  const dataPerPage = 4;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -19,12 +22,12 @@ function Category() {
           setCategories(response.data.categorys);
         }
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error("Error fetching categories:", error);
       }
     };
 
     fetchCategories();
-  }, [categories]);
+  }, []);
 
   const handleAddCategory = async () => {
     try {
@@ -42,34 +45,28 @@ function Category() {
       }
 
       const newCategoryData = { name: categoryName, isListed: true };
-      const addedCategory = await addCategory(newCategoryData);
+      const response = await addCategory(newCategoryData);
 
-      setCategories((prevCategories) => [...prevCategories, addedCategory]);
-
-      setShowAddModal(false);
-      setCategoryName("");
-      setError("");
+      if (response && response.data) {
+        const addedCategory = response.data;
+        setCategories((prevCategories) => [...prevCategories, addedCategory]);
+        setCategoryName("");
+        setError("");
+        setShowAddModal(false);
+        // Fetch the updated categories after adding a new category
+        const updatedResponse = await category();
+        if (updatedResponse.data && updatedResponse.data.categorys) {
+          setCategories(updatedResponse.data.categorys);
+        }
+      }
     } catch (error) {
       console.error("Error adding category:", error);
       alert("Failed to add category. Please try again.");
     }
   };
-  const blockUnblockCategory = async (categoryId, isListed) => {
-    try {
-      console.log("hey")
-      const updatedCategories = categories.map((category) =>
-        category._id === categoryId ? { ...category, isListed: !isListed } : category
-      );
-      console.log(updatedCategories)
-      setCategories(updatedCategories);
-       const data={
-        catId:categoryId,
-        status:!isListed
-       }
-      await categoryBlock(data);
-    } catch (error) {
-      console.log(error?.response?.data?.message);
-    }
+
+  const blockUnblockCategory = (categoryId, isListed) => {
+    openConfirmModal(categoryId, isListed);
   };
 
   const openAddModal = () => {
@@ -82,6 +79,38 @@ function Category() {
     setError("");
   };
 
+  const openConfirmModal = (categoryId, isListed) => {
+    setSelectedCategoryId(categoryId);
+    setSelectedCategoryStatus(isListed);
+    setShowConfirmModal(true);
+  };
+
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+    setSelectedCategoryId(null);
+    setSelectedCategoryStatus(null);
+  };
+
+  const handleConfirmation = async () => {
+    try {
+      const updatedCategories = categories.map((category) =>
+        category._id === selectedCategoryId
+          ? { ...category, isListed: !selectedCategoryStatus }
+          : category
+      );
+      setCategories(updatedCategories);
+
+      const data = {
+        catId: selectedCategoryId,
+        status: !selectedCategoryStatus,
+      };
+      await categoryBlock(data);
+      closeConfirmModal();
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  };
+
   const lastIndex = currentPage * dataPerPage;
   const firstIndex = lastIndex - dataPerPage;
   const categoriesToShow = categories.slice(firstIndex, lastIndex);
@@ -90,100 +119,166 @@ function Category() {
 
   return (
     <>
-
-    <div  style={{marginTop:'50px',marginBottom:'30px'}}>
-    <h1 style={{textAlign:'center'}}>Category</h1>
-    </div>
-
-      {/* Add Category Button */}
-      <div className="row">
-        <div className="d-flex justify-content-end mb-3 col-lg-2 ms-auto">
-          <button className="btn btn-primary" onClick={openAddModal}>
-            Add Category
-          </button>
+      <div className="container-fluid">
+        <div style={{ marginTop: "50px", marginBottom: "30px" }}>
+          <h1 style={{ textAlign: "center" }}>Category</h1>
         </div>
-      </div>
 
-      {/* Add Category Modal */}
-      {showAddModal && (
-        <div className="modal" tabIndex="-1" role="dialog" style={{ display: "block" }}>
-          {/* Modal Content for Adding Category */}
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Add Category</h5>
-                <button type="button" className="btn-close" onClick={closeAddModal}></button>
-              </div>
-              <div className="modal-body">
-                <div className="mb-3">
-                  <label htmlFor="categoryName" className="form-label">
-                    Category Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="categoryName"
-                    value={categoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
-                  />
+        {/* Add Category Button */}
+        <div className="row">
+          <div className="d-flex justify-content-end mb-3 col-lg-2 ms-auto">
+            <button className="btn btn-primary" onClick={openAddModal}>
+              Add Category
+            </button>
+          </div>
+        </div>
+
+        {showConfirmModal && (
+          <div
+            className="modal"
+            tabIndex="-1"
+            role="dialog"
+            style={{ display: "block" }}
+          >
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirm Action</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={closeConfirmModal}
+                  ></button>
                 </div>
-                {error && <p className="text-danger">{error}</p>}
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={closeAddModal}>
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary" onClick={handleAddCategory}>
-                  Save Category
-                </button>
+                <div className="modal-body">
+                  <p>
+                    Are you sure you want to{" "}
+                    {selectedCategoryStatus ? "unlist" : "list"} this category?
+                  </p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={closeConfirmModal}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleConfirmation}
+                  >
+                    Confirm
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Category Table */}
-      <div className="categoryTable">
-      
-        <table className="table table-bordered">
-          <thead style={{textAlign:'center'}}>
-            <tr>
-              <th>ID</th>
-              <th>Category</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody style={{textAlign:'center'}}>
-            {categoriesToShow.length > 0 ? (
-              categoriesToShow.map((category, index) => (
-                <tr key={category._id}>
-                  <td>{firstIndex + index + 1}</td>
-                  <td>{category.name}</td>
-                  <td>
-                    <button
-                      className={`btn ${category.isListed ? 'btn-success' : 'btn-danger'}`}
-                      onClick={() => blockUnblockCategory(category._id, category.isListed)}
-                   style={{width:'40%'}} >
-                      {category.isListed ? 'Listed' : 'Unlisted'}
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
+        {showAddModal && (
+          <div
+            className="modal"
+            tabIndex="-1"
+            role="dialog"
+            style={{ display: "block" }}
+          >
+            {/* Modal Content for Adding Category */}
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Add Category</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={closeAddModal}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <div className="mb-3">
+                    <label htmlFor="categoryName" className="form-label">
+                      Category Name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="categoryName"
+                      value={categoryName}
+                      onChange={(e) => setCategoryName(e.target.value)}
+                    />
+                  </div>
+                  {error && <p className="text-danger">{error}</p>}
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={closeAddModal}
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleAddCategory}
+                  >
+                    Save Category
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Category Table */}
+        <div className="categoryTable">
+          <table className="table table-bordered">
+            <thead style={{ textAlign: "center" }}>
               <tr>
-                <td colSpan="3">No categories found</td>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Status</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
 
-        {/* Pagination Component */}
-        <Pagination
-          numbers={numbers}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
-        />
+            <tbody style={{ textAlign: "center" }}>
+  {categoriesToShow.length > 0 ? (
+    categoriesToShow.map((category, index) => (
+      <tr key={category._id}>
+        <td>{firstIndex + index + 1}</td>
+        <td>{category.name}</td>
+        <td>
+          <button
+            className={`btn ${
+              category.isListed ? "btn-success" : "btn-danger"
+            }`}
+            onClick={() =>
+              blockUnblockCategory(category._id, category.isListed)
+            }
+            style={{ width: "40%" }}
+          >
+            {category.isListed ? "Listed" : "Unlisted"}
+          </button>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="3">No categories found</td>
+    </tr>
+  )}
+</tbody>
+          </table>
+
+          {/* Pagination Component */}
+          <Pagination
+            numbers={numbers}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
+        </div>
       </div>
     </>
   );

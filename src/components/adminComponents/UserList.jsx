@@ -13,25 +13,24 @@ function UserList() {
   const dataPerPage = 4;
 
   useEffect(() => {
-    userList()
-      .then((res) => {
-        setUsers(res?.data?.users);
-        setFilterData(res?.data?.users);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    fetchUserList();
   }, []);
+
+  const fetchUserList = async () => {
+    try {
+      const res = await userList();
+      setUsers(res.data.users);
+      setFilterData(res.data.users);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   const blockUnblockUser = async (userId, isBlocked) => {
     try {
-      const updatedUsers = users.map((user) =>
-        user._id === userId ? { ...user, isBlocked: !isBlocked } : user
-      );
-      setUsers(updatedUsers);
-      setFilterData(updatedUsers);
+      await userBlock(userId, isBlocked);
+      fetchUserList();  
       setActiveModal(null);
-      await userBlock(userId, !isBlocked);
     } catch (error) {
       console.log(error?.response?.data?.message);
     }
@@ -48,7 +47,7 @@ function UserList() {
   const handleInputChange = (e) => {
     const { value } = e.target;
     setSearchInput(value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
     const filteredUsers = users.filter((person) =>
       person.name.toLowerCase().includes(value.toLowerCase())
     );
@@ -63,11 +62,11 @@ function UserList() {
 
   return (
     <>
-    <div style={{marginTop:'50px',marginBottom:'30px'}}>
-      <h1 style={{textAlign:'center'}}>User List</h1>
-    </div>
+      <div style={{ marginTop: '50px', marginBottom: '30px' }}>
+        <h1 style={{ textAlign: 'center' }}>User List</h1>
+      </div>
       <div className='container-fluid'>
-        <form style={{textAlign:'end',marginBottom:'30px'}}>
+        <form style={{ textAlign: 'end', marginBottom: '30px' }}>
           <input
             name="search"
             value={searchInput}
@@ -80,7 +79,7 @@ function UserList() {
       <div className="userlist">
         <table className="table align-middle mb-0 bg-white table-bordered">
           <thead className="bg-light">
-            <tr style={{textAlign:'center'}}>
+            <tr style={{ textAlign: 'center' }}>
               <th>ID</th>
               <th className="rounded-top-left">Name</th>
               <th>Email</th>
@@ -88,7 +87,7 @@ function UserList() {
               <th className="rounded-top-right">Actions</th>
             </tr>
           </thead>
-          <tbody style={{textAlign:'center'}}>
+          <tbody style={{ textAlign: 'center' }}>
             {usersSinglePage.length > 0 ? (
               usersSinglePage.map((data, index) => (
                 <tr key={data._id}>
@@ -100,18 +99,18 @@ function UserList() {
                     {data.isBlocked ? (
                       <button
                         type="button"
-                        className="btn btn-danger"
-                        onClick={() => openModal(data._id)}
-                      >
-                       Block
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
                         className="btn btn-success"
                         onClick={() => openModal(data._id)}
                       >
                         Unblock
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => openModal(data._id)}
+                      >
+                        Block
                       </button>
                     )}
                   </td>
@@ -126,7 +125,6 @@ function UserList() {
         </table>
       </div>
 
-    
       <Pagination
         numbers={numbers}
         currentPage={currentPage}
@@ -134,7 +132,6 @@ function UserList() {
         totalPages={totalPages}
       />
 
-   
       {users.map((data) => (
         <div
           key={`popup-modal-${data._id}`}
@@ -176,4 +173,4 @@ function UserList() {
   );
 }
 
-export default UserList; 
+export default UserList;

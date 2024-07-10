@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 30px;
+  }
+  
+  .pagination-button-small {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none !important;
+    background-color: #f0f0f0;
+    color: black;
+    cursor: pointer;
+  }
+  
+  .pagination-button-small.active {
+    background-color: black;
+    color: white;
+  }
+  
+  .pagination-button-small:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+  }
+  
+  .pagination-admin{
+    display: flex;
+    justify-content: center;
+  }

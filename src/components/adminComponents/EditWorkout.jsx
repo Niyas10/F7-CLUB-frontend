@@ -10,7 +10,8 @@ const EditWorkout = () => {
   const { workoutId } = useParams();
   const [categories, setCategories] = useState([]);
   const [workout, setWorkout] = useState({});
-  const [workoutImage, setWorkoutImage] = useState([]);
+  const [existingImages, setExistingImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
   const navigate = useNavigate();
   const [imagesError, setImagesError] = useState(null);
 
@@ -34,6 +35,7 @@ const EditWorkout = () => {
         const response = await editWorkout(workoutId);
         if (response.data && response.data.workout) {
           setWorkout(response.data.workout);
+          setExistingImages(response.data.workout.images || []);
         }
       } catch (error) {
         console.error("Error fetching workout:", error);
@@ -42,18 +44,33 @@ const EditWorkout = () => {
     fetchWorkout();
   }, [workoutId]);
 
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const onSubmit = async (values) => {
     try {
-      if (workoutImage.length === 0 && workout.images.length === 0) {
+      if (newImages.length === 0 && existingImages.length === 0) {
         setImagesError("Please select at least one image for the workout.");
         return;
       }
 
-      const res = await finalEditWorkout({
-        ...values,
+      const payload = {
         workoutId,
-        workoutImage,
-      });
+        workoutName: values.workoutName,
+        description: values.description,
+        difficulty: values.difficulty,
+        category: values.category,
+        newImages: await Promise.all(newImages.map(fileToBase64)),
+        existingImages,
+      };
+
+      const res = await finalEditWorkout(payload);
 
       if (res?.status === 200) {
         navigate("/admin/workouts");
@@ -83,17 +100,19 @@ const EditWorkout = () => {
         file.type.startsWith("image/jpeg") || file.type.startsWith("image/png")
     );
     if (isValid) {
-      setWorkoutImage(files);
+      setNewImages([...newImages, ...files]);
       setImagesError(null);
     } else {
       setImagesError("Invalid file type. Please select valid image files.");
-      setWorkoutImage([]);
     }
   };
 
   const handleDeleteImage = (imageURL) => {
-    // Implement deletion logic for workout images
-    console.log("Deleting image:", imageURL);
+    setExistingImages(existingImages.filter((image) => image !== imageURL));
+  };
+
+  const handleDeleteNewImage = (index) => {
+    setNewImages(newImages.filter((_, i) => i !== index));
   };
 
   return (
@@ -208,33 +227,42 @@ const EditWorkout = () => {
                 />
                 {imagesError && <p className="text-danger">{imagesError}</p>}
               </div>
-              {/* Display selected images */}
-              {/* {workoutImage.length > 0 &&
-                workoutImage.map((image, index) => (
+
+              {existingImages.map((imageURL, index) => (
+                <div key={index} className="position-relative">
                   <img
-                    key={index}
-                    src={URL.createObjectURL(image)}
+                    src={imageURL}
                     alt={`Workout Image ${index + 1}`}
-                    className="img-fluid mb-2"
-                    style={{ maxWidth: "100%" ,marginTop:'100px'}}
+                    className="h-auto"
+                    style={{ maxWidth: "100%", marginTop: "10px" }}
                   />
-                ))} */}
-              {workout.images &&
-                workout.images.map((imageURL, index) => (
-                  <div key={index} className="position-relative">
-                    <img
-                      src={imageURL}
-                      alt={`Room Image ${index + 1}`}
-                      className=" h-auto" style={{maxWidth:'100%',marginTop:'100px'}}
-                    />
-                    <button
-                      onClick={() => handleDeleteImage(imageURL)}
-                      className="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
-                  </div>
-                ))}
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteImage(imageURL)}
+                    className="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
+              ))}
+
+              {newImages.map((file, index) => (
+                <div key={index} className="position-relative">
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`New Workout Image ${index + 1}`}
+                    className="h-auto"
+                    style={{ maxWidth: "100%", marginTop: "10px" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteNewImage(index)}
+                    className="btn btn-sm btn-danger position-absolute top-0 end-0 m-2"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>

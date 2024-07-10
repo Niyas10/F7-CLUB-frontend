@@ -14,7 +14,6 @@ function UserHome() {
    <ThirdSection/>
    <SecondSection/>
    <FourthSection/>
-  
    <UserFooter/>
 
    

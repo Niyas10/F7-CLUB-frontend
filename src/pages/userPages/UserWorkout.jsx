@@ -8,7 +8,7 @@ function UserWorkout() {
     <>
       <UserNavbar />
       <UserSideWorkout />
-      {/* <UserFooter/> */}
+      <UserFooter/>
     </>
   );
 }

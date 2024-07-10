@@ -1,0 +1,126 @@
+.email-verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.email-verify-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.email-verify-title {
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.email-verify-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.email-verify-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.email-verify-input {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 24px;
+  text-align: center;
+  margin: 0 4px;
+  transition: border-color 0.3s ease;
+}
+
+.email-verify-input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.email-verify-error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.email-verify-message {
+  color: #2ecc71;
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.email-verify-submit {
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.email-verify-submit:hover {
+  background-color: #3a7bd5;
+}
+
+.email-verify-resend-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.email-verify-resend {
+  background-color: transparent;
+  border: none;
+  color: #4a90e2;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.email-verify-resend:hover:not(.disabled) {
+  color: #3a7bd5;
+}
+
+.email-verify-resend.disabled {
+  color: #999;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.email-verify-limit-message {
+  color: #666;
+  font-size: 14px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.email-verify-login-link {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.email-verify-login-link:hover {
+  text-decoration: underline;
+}

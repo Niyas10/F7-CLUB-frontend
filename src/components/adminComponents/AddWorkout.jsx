@@ -15,7 +15,7 @@ const AddWorkout = () => {
       try {
         const response = await category();
         if (response.data && response.data.categorys) {
-          setCategories(response.data.categorys);
+          setCategories(response.data.categorys.filter((category) => category.isListed));
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -50,24 +50,22 @@ const AddWorkout = () => {
       console.log(error, "response in error");
     }
   };
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        workoutName: "",
-        description: "",
-        difficulty: "",
-        category: "",
-        isListed: true,
-      },
-      onSubmit,
-    });
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues: {
+      workoutName: "",
+      description: "",
+      difficulty: "",
+      category: "",
+      isListed: true,
+    },
+    onSubmit,
+  });
 
   const handleOnChange = (event) => {
     const files = Array.from(event.target.files);
     const isValid = files.every(
-      (files) =>
-        files.type.startsWith("image/jpeg") ||
-        files.type.startsWith("image/png")
+      (files) => files.type.startsWith("image/jpeg") || files.type.startsWith("image/png")
     );
     if (isValid) {
       setImageToBase(files);
@@ -75,7 +73,6 @@ const AddWorkout = () => {
     } else {
       setImagesError("Invalid files type. Please select valid image files.");
     }
-    setImage([]);
     event.target.value = null;
   };
 
@@ -93,9 +90,12 @@ const AddWorkout = () => {
     }
   };
 
+  const handleRemoveImage = (index) => {
+    setImage((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="container">
-    
       <h2>Add Workout</h2>
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -114,9 +114,7 @@ const AddWorkout = () => {
                 onBlur={handleBlur}
               />
               {touched.workoutName && errors.workoutName && (
-                <p className="text-red-600 text-sm mt-1">
-                  {errors.workoutName}
-                </p>
+                <p className="text-red-600 text-sm mt-1">{errors.workoutName}</p>
               )}
             </div>
 
@@ -168,7 +166,7 @@ const AddWorkout = () => {
 
             <div className="mb-3">
               <label htmlFor="description" className="form-label">
-                description
+                Description
               </label>
               <textarea
                 className="form-control"
@@ -180,9 +178,7 @@ const AddWorkout = () => {
                 rows="3"
               ></textarea>
               {touched.description && errors.description && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.description}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{errors.description}</p>
               )}
             </div>
           </div>
@@ -192,8 +188,8 @@ const AddWorkout = () => {
               <h4>View Section</h4>
               <div className="mb-3">
                 <label htmlFor="image" className="form-label">
-                  <button className="btn" onClick={onChooseImg}>
-                    Choose File{" "}
+                  <button type="button" className="btn" onClick={onChooseImg}>
+                    Choose File
                   </button>
                 </label>
                 <span className="ml-2">{Image.length} file(s) selected</span>
@@ -210,12 +206,27 @@ const AddWorkout = () => {
                   style={{ display: "none" }}
                 />
               </div>
+              {Image.length > 0 && (
+                <div className="image-preview">
+                  {Image.map((img, index) => (
+                    <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
+                      <img
+                        src={img}
+                        alt={`preview ${index}`}
+                        style={{ width: "50px", height: "50px", marginRight: "10px" }}
+                      />
+                      <button type="button" className="btn btn-danger btn-sm" onClick={() => handleRemoveImage(index)}>
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {ImagesError && <p className="text-red-500">{ImagesError}</p>}
             </div>
           </div>
-
-          {ImagesError && <p className="text-red-500">{ImagesError}</p>}
         </div>
-        <button typtype="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>

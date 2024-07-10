@@ -1,0 +1,65 @@
+.workout-image {
+  overflow: hidden;
+  position: relative;
+  width: 1000px; 
+
+}
+
+.workout-image img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.workout-image:hover img {
+  transform: scale(1.1); /* Adjust the scale factor as needed */
+}
+
+.workout-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1); /* Adjust overlay color and opacity */
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.workout-image:hover::after {
+  opacity: 1;
+}
+
+.workout-details-container {
+  display: flex;
+  justify-content: center;
+  align-items:start;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid black;
+  background-color: black;
+}
+
+.workout-details {
+  margin-left: 20px;
+}
+
+.header-section {
+  padding: 25px 0;
+  background-color: black;
+}
+
+.classic-section {
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.workout-font {
+  margin: 0 20px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}

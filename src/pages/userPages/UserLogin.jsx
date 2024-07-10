@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginVerification } from '../../api/userApi';
+import { loginVerification} from '../../api/userApi';
 import { userLogin } from '../../reduxStore/slice/userSlice';
 import { loginSchema } from "../../validation/user/loginValidation";
 
@@ -56,6 +56,7 @@ function UserLogin() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="text"
+                placeholder='email'
                 />
                 <label htmlFor="email">Email</label>
                 {errors.email && touched.email && (
@@ -71,18 +72,17 @@ function UserLogin() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   type="password"
+                  placeholder='password'
                 />
                 <label htmlFor="password">Password</label>
                 {errors.password && touched.password && (
                   <div className="error-message">{errors.password}</div>
                 )}
               </div>
-              <div className="forget-password" style={{ display: 'flex', justifyContent: 'end' }}>
-                <label htmlFor="rememberMe"><a href="#">Forgot Password</a></label>
-              </div>
+          
               <button type="submit">Log in</button>
               <div className="register-link">
-                <p style={{ display: 'flex', justifyContent: 'space-between' }}>Don't have an account? <Link to='/signup'>Register</Link></p>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}> <Link to={'/forgetPassword'}> Forgot password </Link>     <Link to='/signup'>Register</Link></p>
               </div>
             </form>
           </div>
